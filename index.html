@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benavides Corio — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0E1117;
+    --panel: #161B22;
+    --panel-2: #1C232C;
+    --line: #2A323D;
+    --text: #E6E8EB;
+    --muted: #8B949E;
+    --accent: #FF8A3D;
+    --accent-2: #5EEAD4;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+    --sidebar-w: 250px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+  }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+
+  /* ---------- LAYOUT ---------- */
+  .app{
+    display:grid;
+    grid-template-columns:var(--sidebar-w) 1fr;
+    min-height:100vh;
+  }
+
+  /* ---------- SIDEBAR ---------- */
+  aside{
+    background:var(--panel);
+    border-right:1px solid var(--line);
+    position:fixed;
+    top:0;left:0;bottom:0;
+    width:var(--sidebar-w);
+    padding:36px 26px;
+    display:flex;
+    flex-direction:column;
+  }
+  .brand{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:16px;
+    color:var(--accent);
+    margin-bottom:6px;
+  }
+  .brand span{color:var(--muted);}
+  .brand-sub{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-bottom:36px;}
+
+  .side-nav a{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--mono);
+    font-size:13.5px;
+    color:var(--muted);
+    padding:10px 0;
+    border-left:2px solid transparent;
+    padding-left:12px;
+    transition:color .2s, border-color .2s;
+  }
+  .side-nav a:hover, .side-nav a.active{
+    color:var(--text);
+    border-left-color:var(--accent);
+  }
+  .side-nav a::before{content:"#";color:var(--accent-2);}
+
+  .side-foot{
+    margin-top:auto;
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--muted);
+    border-top:1px solid var(--line);
+    padding-top:18px;
+  }
+
+  /* ---------- MAIN ---------- */
+  main{
+    grid-column:2;
+    margin-left:var(--sidebar-w);
+    padding:0 0 60px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 48px;}
+
+  section{padding:90px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+
+  .eyebrow{
+    font-family:var(--mono);
+    color:var(--accent);
+    font-size:13px;
+    margin-bottom:10px;
+  }
+  .eyebrow::before{content:"// ";color:var(--muted);}
+  h2.title{font-size:clamp(24px,3vw,32px);font-weight:800;margin-bottom:40px;letter-spacing:-0.01em;}
+
+  /* ---------- PERFIL (HERO) ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;inset:0;
+    background:
+      radial-gradient(circle at 85% 15%, rgba(255,138,61,0.10), transparent 45%),
+      radial-gradient(circle at 10% 80%, rgba(94,234,212,0.06), transparent 40%);
+    pointer-events:none;
+  }
+  .hero-inner{display:flex;align-items:center;gap:48px;}
+  .photo-frame{
+    width:160px;height:160px;
+    border-radius:16px;
+    overflow:hidden;
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    flex-shrink:0;
+    position:relative;
+  }
+  .photo-frame img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(15%) contrast(1.05);}
+  .photo-frame::after{
+    content:"";position:absolute;inset:0;
+    border:1px solid var(--accent);border-radius:16px;
+    transform:translate(8px,8px);z-index:-1;
+  }
+  .terminal-tag{
+    font-family:var(--mono);font-size:13px;color:var(--accent-2);
+    display:flex;align-items:center;gap:8px;margin-bottom:14px;
+  }
+  .terminal-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 8px var(--accent-2);}
+  .hero h1{font-size:clamp(30px,4vw,44px);font-weight:800;line-height:1.1;letter-spacing:-0.02em;}
+  .hero h1 .hl{color:var(--accent);}
+  .hero .role{font-family:var(--mono);color:var(--muted);font-size:16px;margin-top:10px;}
+  .hero p.desc{color:var(--muted);margin-top:16px;max-width:480px;font-size:15px;}
+  .cta-row{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:13px;padding:12px 22px;border-radius:6px;
+    cursor:pointer;border:1px solid transparent;
+    transition:transform .15s ease, border-color .2s ease, color .2s ease;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary{background:var(--accent);color:#0E1117;font-weight:700;}
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost{border-color:var(--line);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--accent-2);color:var(--accent-2);transform:translateY(-2px);}
+
+  /* ---------- INFO PERSONAL ---------- */
+  .info-list{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .info-item{
+    font-family:var(--mono);font-size:13px;color:var(--muted);
+    background:var(--panel);border:1px solid var(--line);
+    padding:12px 16px;border-radius:8px;
+  }
+  .info-item b{color:var(--text);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;font-family:var(--sans);font-weight:600;}
+
+  /* ---------- TIMELINE (experiencia/educación) ---------- */
+  .timeline-item{
+    position:relative;
+    padding-left:28px;
+    border-left:1px solid var(--line);
+    padding-bottom:36px;
+  }
+  .timeline-item:last-child{padding-bottom:0;}
+  .timeline-item::before{
+    content:"";position:absolute;left:-5px;top:4px;
+    width:9px;height:9px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 0 4px var(--bg);
+  }
+  .timeline-item .when{font-family:var(--mono);font-size:12px;color:var(--accent-2);margin-bottom:6px;}
+  .timeline-item h3{font-size:17px;margin-bottom:2px;}
+  .timeline-item .org{color:var(--muted);font-size:13.5px;margin-bottom:10px;}
+  .timeline-item p{color:var(--muted);font-size:14.5px;margin-bottom:8px;}
+  .timeline-item ul{margin-top:8px;}
+  .timeline-item li{color:var(--muted);font-size:14px;padding-left:16px;position:relative;margin-bottom:6px;}
+  .timeline-item li::before{content:"›";position:absolute;left:0;color:var(--accent);}
+
+  /* ---------- SKILLS ---------- */
+  .skills-cols{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+  .skills-cols h4{font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:16px;}
+  .skill-chip-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px;}
+  .skill-chip{
+    font-family:var(--mono);font-size:12.5px;padding:8px 14px;
+    border:1px solid var(--line);border-radius:999px;
+    color:var(--text);background:var(--panel);
+    transition:border-color .2s, color .2s;
+  }
+  .skill-chip:hover{border-color:var(--accent);color:var(--accent);}
+  .lang-row{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);padding:8px 0;border-bottom:1px solid var(--line);}
+  .lang-row span:last-child{font-family:var(--mono);color:var(--accent-2);font-size:12.5px;}
+
+  /* ---------- PROYECTOS ---------- */
+  .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+  .project-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    overflow:hidden;transition:transform .2s ease, border-color .2s ease;
+  }
+  .project-card:hover{transform:translateY(-4px);border-color:var(--accent);}
+  .project-thumb{height:150px;overflow:hidden;background:linear-gradient(135deg,var(--panel-2),#11151b);border-bottom:1px solid var(--line);}
+  .project-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .project-thumb.placeholder{display:flex;align-items:center;justify-content:center;font-family:var(--mono);color:var(--line);font-size:13px;}
+  .project-body{padding:20px;}
+  .project-body .ptag{font-family:var(--mono);font-size:11px;color:var(--accent-2);margin-bottom:8px;display:block;}
+  .project-body h3{font-size:16.5px;margin-bottom:6px;}
+  .project-body p{color:var(--muted);font-size:13.5px;margin-bottom:14px;}
+  .project-links a{font-family:var(--mono);font-size:12px;color:var(--text);border-bottom:1px solid var(--line);}
+  .project-links a:hover{color:var(--accent);border-color:var(--accent);}
+
+  /* ---------- CERTIFICADOS ---------- */
+  .cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .cert-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    overflow:hidden;transition:border-color .2s, transform .2s;
+  }
+  .cert-card:hover{border-color:var(--accent-2);transform:translateY(-3px);}
+  .cert-card img{width:100%;height:140px;object-fit:cover;display:block;}
+  .cert-card .cert-label{font-family:var(--mono);font-size:12px;color:var(--muted);padding:12px 14px;}
+
+  /* ---------- CONTACTO ---------- */
+  .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+  .form-group{margin-bottom:16px;}
+  .form-group label{display:block;font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:6px;}
+  .form-group input, .form-group textarea{
+    width:100%;background:var(--panel);border:1px solid var(--line);
+    border-radius:8px;padding:12px 14px;color:var(--text);font-family:var(--sans);font-size:14px;
+    resize:vertical;
+  }
+  .form-group input:focus, .form-group textarea:focus{outline:none;border-color:var(--accent-2);}
+  .contact-info .contact-row{
+    display:flex;gap:14px;align-items:flex-start;margin-bottom:22px;
+    font-size:14px;color:var(--muted);
+  }
+  .contact-info .contact-row b{display:block;color:var(--text);font-size:13px;margin-bottom:2px;font-family:var(--mono);}
+  .contact-info .icon{color:var(--accent);font-family:var(--mono);}
+
+  footer{
+    margin-left:var(--sidebar-w);
+    border-top:1px solid var(--line);
+    padding:28px 48px;
+    text-align:center;
+    font-family:var(--mono);
+    color:var(--muted);
+    font-size:12px;
+  }
+  footer .accent{color:var(--accent);}
+
+  @media(max-width:900px){
+    aside{display:none;}
+    main, footer{margin-left:0;}
+    .app{grid-template-columns:1fr;}
+    .hero-inner{flex-direction:column;text-align:center;}
+    .info-list, .skills-cols, .projects-grid, .contact-wrap{grid-template-columns:1fr;}
+    .cert-grid{grid-template-columns:1fr 1fr;}
+  }
+
+  /* ---------- ANIMACIONES JS ---------- */
+  .scroll-progress{
+    position:fixed;top:0;left:0;
+    height:3px;
+    background:linear-gradient(90deg, var(--accent), var(--accent-2));
+    z-index:200;
+    width:0%;
+    transition:width .1s ease-out;
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in-view{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .role .typed-cursor{
+    display:inline-block;
+    width:8px;height:16px;
+    background:var(--accent);
+    margin-left:3px;
+    vertical-align:middle;
+    animation:blinkcursor 0.9s step-end infinite;
+  }
+  @keyframes blinkcursor{50%{opacity:0;}}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+    .reveal{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<div class="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside>
+    <div class="brand">~/<span>Benavides Corio Cristian Yahir</span></div>
+    <div class="brand-sub">CV</div>
+    <nav class="side-nav">
+      <a href="#perfil">perfil</a>
+      <a href="#experiencia">experiencia</a>
+      <a href="#educacion">educación</a>
+      <a href="#habilidades">habilidades</a>
+      <a href="#proyectos">proyectos</a>
+      <a href="#certificados">constancias</a>
+      <a href="#contacto">contacto</a>
+    </nav>
+    <div class="side-foot">© 2026 Benavides Corio Cristian Yahir</div>
+  </aside>
+
+  <main>
+
+    <!-- ============ PERFIL ============ -->
+    <section id="perfil" class="hero">
+      <div class="wrap">
+        <div class="hero-inner">
+          <div class="photo-frame">
+            <!-- 👉 Reemplaza por tu foto -->
+            <img src="yo.png" alt="Foto de Tu Nombre">
+          </div>
+          <div>
+            <div class="terminal-tag"><span class="dot"></span> disponible para pasantías</div>
+            <h1>Benavides <span class="hl">Corio Cristian Yahir</span></h1>
+            <p class="role" id="roleText"></p>
+            <p class="desc">
+              Estudiante de Informática apacionado por la tecnologia. He desarrollado páginas web, chatbots
+              y sistemas con bases de datos, y he competido en programación a nivel internacional.
+              Busco una oportunidad laboral donde seguir aprendiendo y aportar mis conocimientos.
+            </p>
+            <div class="cta-row">
+              <a href="#contacto" class="btn btn-primary">Contactame →</a>
+              <a href="docs/Benavides corio cristian yahir cv.pdf" download class="btn btn-ghost">Descargar CV</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-list reveal">
+          <div class="info-item"><b>ubicación</b>Nezahualcoyotl , Estado de Mexico</div>
+          <div class="info-item"><b>teléfono</b>+52 55  7750 1043</div>
+          <div class="info-item"><b>email</b>10ben.cris@gmail.com</div>
+          <div class="info-item"><b>github</b>github.com/Cristian-BC</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EXPERIENCIA ============ -->
+    <section id="experiencia">
+      <div class="wrap">
+        <div class="eyebrow">experiencia</div>
+        <h2 class="title">Trayectoria profesional</h2>
+
+        <div class="timeline-item reveal">
+          <div class="when">junio 2025 — Actualidad</div>
+          <h3>Tecnico en automatizacion del hogar / Instalador</h3>
+          <div class="org">Emprendimiento</div>
+          <p>Me dedico a la instalacion de aparatos domoticos para la automatisacion
+            del hogar con el fin de facilitar la vida de los usuarios
+          </p>
+          <ul>
+            <li>Instalacion de luses inteligentes para una persona en silla de ruedas</li>
+            <li>Automatisacion de una cocina para un uso adecuado de menores de edad</li>
+            <li>Manejo total de luzes y televisor por medio de la vos para perona con cuadriplegia</li>
+          </ul>
+        </div>
+
+       
+
+    <!-- ============ EDUCACIÓN ============ -->
+    <section id="educacion">
+      <div class="wrap">
+        <div class="eyebrow">educación</div>
+        <h2 class="title">Formación académica</h2>
+
+        <div class="timeline-item reveal">
+          <div class="when">2023 — Actualidad</div>
+          <h3>Licenciatura en Informática</h3>
+          <div class="org">Faculta de Estudios Superiores Cuautitlan Izcali Campo 4</div>
+          <p>Sexto semestre. Enfoque en desarrollo web, bases de datos, chatbots y programación competitiva.</p>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="when">2019 — 2023</div>
+          <h3>Bachillerato</h3>
+          <div class="org">Escuela Nacional Preparatoria No.7</div>
+          <p>Bachillerato completo con formacion en el area de las ciencias sociales</p>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="when">2015 — 2018</div>
+          <h3>Secundaria Tecnica</h3>
+          <div class="org">E.S.T No.69</div>
+          <p>Conclui mis estidios como tecnico en diseño industrial</p>
+        </div>
+      </div>
+      
+
+
+    </section>
+
+     
+    
+    <!-- ============ HABILIDADES ============ -->
+    <section id="habilidades">
+      <div class="wrap">
+        <div class="eyebrow">habilidades</div>
+        <h2 class="title">Lo que sé hacer</h2>
+
+        <div class="skills-cols reveal">
+          <div>
+            <h4>técnicas</h4>
+            <div class="skill-chip-row">
+              <span class="skill-chip">HTML / CSS / JS / PHP</span>
+              <span class="skill-chip">Python / java  </span>
+              <span class="skill-chip">SQL</span>
+              <span class="skill-chip">Excel / Power BI</span>
+              <span class="skill-chip">Chatbots / DialogFlow / Make / N8N</span>
+              <span class="skill-chip">Git / GitHub</span>
+              <span class="skill-chip">C / C++ / C#</span>
+            </div>
+            <h4>idiomas</h4>
+            <div class="lang-row"><span>Español</span><span>Nativo</span></div>
+            <div class="lang-row"><span>Inglés</span><span>B1</span></div>
+            <div class="lang-row"><span>Frances</span><span>A2</span></div>
+          </div>
+          <div>
+            <h4>blandas</h4>
+            <div class="skill-chip-row">
+              <span class="skill-chip">Trabajo en equipo</span>
+              <span class="skill-chip">Resolución de problemas</span>
+              <span class="skill-chip">Comunicación efectiva</span>
+              <span class="skill-chip">Adaptabilidad</span>
+              <span class="skill-chip">Proactivo</span>
+              <span class="skill-chip">Gestión del tiempo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROYECTOS ============ -->
+    <section id="proyectos">
+      <div class="wrap">
+        <div class="eyebrow">proyectos</div>
+        <h2 class="title">Cosas que he construido</h2>
+
+        <div class="projects-grid">
+
+          <div class="project-card reveal">
+            <div class="project-thumb">
+              <!-- 👉 Reemplaza por una captura real, o deja el placeholder de abajo -->
+              <img src="image.png" alt="Captura del proyecto 1">
+            </div>
+            <div class="project-body">
+              <span class="ptag">Chatbot</span>
+              <h3>GoIA</h3>
+              <p>Un agente inteligente creado para servir como personal de servicios escolares con una disponibilidad de 24 horas</p>
+              <div class="project-links"><a href="https://web.telegram.org/a/#8690027974">Ver más</a></div>
+            </div>
+          </div>
+
+          <div class="project-card reveal">
+            <div class="project-thumb">
+              <img src="nikebot.png" alt="Captura del proyecto 2">
+            </div>
+            <div class="project-body">
+              <span class="ptag">chatbot</span>
+              <h3>NikeBot</h3>
+              <p>Un chatbot de ventas creado para un negocio de snikers el cual mantiene un inventario virtual en una base de datos</p>
+              <div class="project-links"><a href="https://web.telegram.org/a/#8486438962">Ver más</a></div>
+            </div>
+          </div>
+
+          
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CERTIFICADOS ============ -->
+    <section id="certificados">
+      <div class="wrap">
+        <div class="eyebrow">constancias</div>
+        <h2 class="title">Certificados y constancias</h2>
+
+        <div class="cert-grid">
+          <div class="cert-card reveal">
+            <img src="iee17.jpg" alt="Certificado 1">
+            <div class="cert-label">Competencia Internacional IEEExtreme 17.0</div>
+          </div>
+          <div class="cert-card reveal">
+            <img src="iee18.jpg" alt="Certificado 2">
+            <div class="cert-label">Competencia Internacional IEEExtreme 18.0</div>
+          </div>
+          <div class="cert-card reveal">
+            <img src="expo.jpg" alt="Certificado 3">
+            <div class="cert-label">Conferencia sobre la construccion de un agente inteligente</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACTO ============ -->
+    <section id="contacto">
+      <div class="wrap">
+        <div class="eyebrow">contacto</div>
+        <h2 class="title">Hablemos</h2>
+
+        <div class="contact-wrap reveal">
+          
+
+          <div class="contact-info">
+            <div class="contact-row">
+              <span class="icon">[loc]</span>
+              <div><b>Ubicación</b>Nezahualcoyotl , Estado de Mexico</div>
+            </div>
+            <div class="contact-row">
+              <span class="icon">[@]</span>
+              <div><b>Email</b><a href="mailto:10ben.cris@gmail.com">10ben.cris@gmail.com</a></div>
+            </div>
+            <div class="contact-row">
+              <span class="icon">[tel]</span>
+              <div><b>Teléfono</b><a href="tel:+525577501043">+52 55 7750 1043</a></div>
+            </div>
+           
+            <div class="contact-row">
+              <span class="icon">[gh]</span>
+              <div><b>GitHub</b>github.com/Cristian-BC</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  © 2026 Benavides — hecho con <span class="accent">HTML</span> &amp; <span class="accent">Monster</span>.
+</footer>
+
+<script>
+  // ===== 1. Barra de progreso de scroll =====
+  const progressBar = document.getElementById('scrollProgress');
+  function updateProgress(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, {passive:true});
+  updateProgress();
+
+  // ===== 2. Resaltar el link activo del menú lateral =====
+  const sections = document.querySelectorAll('main section');
+  const navLinks = document.querySelectorAll('.side-nav a');
+
+  const navObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link=>{
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+
+  sections.forEach(sec => navObserver.observe(sec));
+
+  // ===== 3. Animación de aparición al hacer scroll (reveal) =====
+  const revealEls = document.querySelectorAll('.reveal');
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach((entry, i)=>{
+      if(entry.isIntersecting){
+        // pequeño retraso escalonado para que no aparezcan todos a la vez
+        setTimeout(()=>{
+          entry.target.classList.add('in-view');
+        }, i * 60);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // ===== 4. Efecto de "escritura" (typing) en el rol =====
+  const roleEl = document.getElementById('roleText');
+  const roleText = "estudiante de informática · desarrollador web";
+  let charIndex = 0;
+
+  function typeRole(){
+    if(charIndex <= roleText.length){
+      roleEl.innerHTML = roleText.slice(0, charIndex) + '<span class="typed-cursor"></span>';
+      charIndex++;
+      setTimeout(typeRole, 45);
+    } else {
+      roleEl.innerHTML = roleText + '<span class="typed-cursor"></span>';
+    }
+  }
+  // Respeta la preferencia de reducir movimiento
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(prefersReducedMotion){
+    roleEl.textContent = roleText;
+  } else {
+    typeRole();
+  }
+
+  // ===== 5. Scroll suave al hacer click en el menú (refuerzo además del CSS) =====
+  navLinks.forEach(link=>{
+    link.addEventListener('click', (e)=>{
+      const target = document.querySelector(link.getAttribute('href'));
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block:'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
