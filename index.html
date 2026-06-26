@@ -19,6 +19,7 @@
     --mono: 'JetBrains Mono', monospace;
     --sans: 'Inter', sans-serif;
     --sidebar-w: 250px;
+    --topbar-h: 56px;
   }
 
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -32,11 +33,73 @@
   a{color:inherit;text-decoration:none;}
   ul{list-style:none;}
 
+  /* ---------- TOPBAR ---------- */
+  .topbar{
+    position:fixed;
+    top:0;left:0;right:0;
+    height:var(--topbar-h);
+    background:rgba(22,27,34,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    z-index:300;
+    padding:0 16px;
+    overflow-x:auto;
+    white-space:nowrap;
+    -webkit-overflow-scrolling:touch;
+    mask-image:linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+    -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+  }
+  .topbar a{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--muted);
+    padding:8px 14px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    transition:color .2s, border-color .2s, background .2s;
+    flex-shrink:0;
+  }
+  .topbar a:hover, .topbar a.active{
+    color:var(--bg);
+    background:var(--accent);
+    border-color:var(--accent);
+  }
+  .topbar::-webkit-scrollbar{height:4px;}
+  .topbar::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px;}
+
+  @media(max-width:900px){
+    .topbar{
+      justify-content:flex-start;
+      gap:6px;
+      padding:0 14px;
+    }
+    .topbar a{
+      font-size:11.5px;
+      padding:7px 12px;
+    }
+  }
+  @media(max-width:480px){
+    :root{ --topbar-h: 50px; }
+    .topbar{
+      gap:5px;
+      padding:0 10px;
+    }
+    .topbar a{
+      font-size:10.5px;
+      padding:6px 10px;
+    }
+  }
+
   /* ---------- LAYOUT ---------- */
   .app{
     display:grid;
     grid-template-columns:var(--sidebar-w) 1fr;
     min-height:100vh;
+    padding-top:var(--topbar-h);
   }
 
   /* ---------- SIDEBAR ---------- */
@@ -44,7 +107,7 @@
     background:var(--panel);
     border-right:1px solid var(--line);
     position:fixed;
-    top:0;left:0;bottom:0;
+    top:var(--topbar-h);left:0;bottom:0;
     width:var(--sidebar-w);
     padding:36px 26px;
     display:flex;
@@ -109,7 +172,7 @@
 
   /* ---------- PERFIL (HERO) ---------- */
   .hero{
-    min-height:100vh;
+    min-height:calc(100vh - var(--topbar-h));
     display:flex;
     align-items:center;
     border-bottom:1px solid var(--line);
@@ -270,7 +333,8 @@
 
   /* ---------- ANIMACIONES JS ---------- */
   .scroll-progress{
-    position:fixed;top:0;left:0;
+    position:fixed;
+    top:var(--topbar-h);left:0;
     height:3px;
     background:linear-gradient(90deg, var(--accent), var(--accent-2));
     z-index:200;
@@ -305,6 +369,17 @@
 </style>
 </head>
 <body>
+
+<!-- ============ BARRA SUPERIOR DE BOTONES ============ -->
+<nav class="topbar" id="topbar">
+  <a href="#perfil">Perfil</a>
+  <a href="#experiencia">Experiencia</a>
+  <a href="#educacion">Educación</a>
+  <a href="#habilidades">Habilidades</a>
+  <a href="#proyectos">Proyectos</a>
+  <a href="#certificados">Constancias</a>
+  <a href="#contacto">Contacto</a>
+</nav>
 
 <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -341,20 +416,20 @@
             <h1>Benavides <span class="hl">Corio Cristian Yahir</span></h1>
             <p class="role" id="roleText"></p>
             <p class="desc">
-              Estudiante de Informática apacionado por la tecnologia. He desarrollado páginas web, chatbots
+              Estudiante de Informática apasionado por la tecnología. He desarrollado páginas web, chatbots
               y sistemas con bases de datos, y he competido en programación a nivel internacional.
               Busco una oportunidad laboral donde seguir aprendiendo y aportar mis conocimientos.
             </p>
             <div class="cta-row">
-              <a href="#contacto" class="btn btn-primary">Contactame →</a>
+              <a href="#contacto" class="btn btn-primary">Contáctame →</a>
               <a href="docs/Benavides corio cristian yahir cv.pdf" download class="btn btn-ghost">Descargar CV</a>
             </div>
           </div>
         </div>
 
         <div class="info-list reveal">
-          <div class="info-item"><b>ubicación</b>Nezahualcoyotl , Estado de Mexico</div>
-          <div class="info-item"><b>teléfono</b>+52 55  7750 1043</div>
+          <div class="info-item"><b>ubicación</b>Nezahualcóyotl, Estado de México</div>
+          <div class="info-item"><b>teléfono</b>+52 55 7750 1043</div>
           <div class="info-item"><b>email</b>10ben.cris@gmail.com</div>
           <div class="info-item"><b>github</b>github.com/Cristian-BC</div>
         </div>
@@ -369,19 +444,20 @@
 
         <div class="timeline-item reveal">
           <div class="when">junio 2025 — Actualidad</div>
-          <h3>Tecnico en automatizacion del hogar / Instalador</h3>
+          <h3>Técnico en automatización del hogar / Instalador</h3>
           <div class="org">Emprendimiento</div>
-          <p>Me dedico a la instalacion de aparatos domoticos para la automatisacion
-            del hogar con el fin de facilitar la vida de los usuarios
+          <p>Me dedico a la instalación de aparatos domóticos para la automatización
+            del hogar con el fin de facilitar la vida de los usuarios.
           </p>
           <ul>
-            <li>Instalacion de luses inteligentes para una persona en silla de ruedas</li>
-            <li>Automatisacion de una cocina para un uso adecuado de menores de edad</li>
-            <li>Manejo total de luzes y televisor por medio de la vos para perona con cuadriplegia</li>
+            <li>Instalación de luces inteligentes para una persona en silla de ruedas</li>
+            <li>Automatización de una cocina para un uso adecuado por menores de edad</li>
+            <li>Manejo total de luces y televisor por medio de la voz para persona con cuadriplejia</li>
           </ul>
         </div>
 
-       
+      </div>
+    </section>
 
     <!-- ============ EDUCACIÓN ============ -->
     <section id="educacion">
@@ -392,30 +468,25 @@
         <div class="timeline-item reveal">
           <div class="when">2023 — Actualidad</div>
           <h3>Licenciatura en Informática</h3>
-          <div class="org">Faculta de Estudios Superiores Cuautitlan Izcali Campo 4</div>
+          <div class="org">Facultad de Estudios Superiores Cuautitlán Izcalli Campo 4</div>
           <p>Sexto semestre. Enfoque en desarrollo web, bases de datos, chatbots y programación competitiva.</p>
         </div>
 
         <div class="timeline-item reveal">
           <div class="when">2019 — 2023</div>
           <h3>Bachillerato</h3>
-          <div class="org">Escuela Nacional Preparatoria No.7</div>
-          <p>Bachillerato completo con formacion en el area de las ciencias sociales</p>
+          <div class="org">Escuela Nacional Preparatoria No. 7</div>
+          <p>Bachillerato completo con formación en el área de las ciencias sociales.</p>
         </div>
         <div class="timeline-item reveal">
           <div class="when">2015 — 2018</div>
-          <h3>Secundaria Tecnica</h3>
-          <div class="org">E.S.T No.69</div>
-          <p>Conclui mis estidios como tecnico en diseño industrial</p>
+          <h3>Secundaria Técnica</h3>
+          <div class="org">E.S.T. No. 69</div>
+          <p>Concluí mis estudios como técnico en diseño industrial.</p>
         </div>
       </div>
-      
-
-
     </section>
 
-     
-    
     <!-- ============ HABILIDADES ============ -->
     <section id="habilidades">
       <div class="wrap">
@@ -427,7 +498,7 @@
             <h4>técnicas</h4>
             <div class="skill-chip-row">
               <span class="skill-chip">HTML / CSS / JS / PHP</span>
-              <span class="skill-chip">Python / java  </span>
+              <span class="skill-chip">Python / Java</span>
               <span class="skill-chip">SQL</span>
               <span class="skill-chip">Excel / Power BI</span>
               <span class="skill-chip">Chatbots / DialogFlow / Make / N8N</span>
@@ -437,7 +508,7 @@
             <h4>idiomas</h4>
             <div class="lang-row"><span>Español</span><span>Nativo</span></div>
             <div class="lang-row"><span>Inglés</span><span>B1</span></div>
-            <div class="lang-row"><span>Frances</span><span>A2</span></div>
+            <div class="lang-row"><span>Francés</span><span>A2</span></div>
           </div>
           <div>
             <h4>blandas</h4>
@@ -470,7 +541,7 @@
             <div class="project-body">
               <span class="ptag">Chatbot</span>
               <h3>GoIA</h3>
-              <p>Un agente inteligente creado para servir como personal de servicios escolares con una disponibilidad de 24 horas</p>
+              <p>Un agente inteligente creado para servir como personal de servicios escolares con una disponibilidad de 24 horas.</p>
               <div class="project-links"><a href="https://web.telegram.org/a/#8690027974">Ver más</a></div>
             </div>
           </div>
@@ -480,14 +551,12 @@
               <img src="nikebot.png" alt="Captura del proyecto 2">
             </div>
             <div class="project-body">
-              <span class="ptag">chatbot</span>
+              <span class="ptag">Chatbot</span>
               <h3>NikeBot</h3>
-              <p>Un chatbot de ventas creado para un negocio de snikers el cual mantiene un inventario virtual en una base de datos</p>
+              <p>Un chatbot de ventas creado para un negocio de sneakers, el cual mantiene un inventario virtual en una base de datos.</p>
               <div class="project-links"><a href="https://web.telegram.org/a/#8486438962">Ver más</a></div>
             </div>
           </div>
-
-          
 
         </div>
       </div>
@@ -510,7 +579,7 @@
           </div>
           <div class="cert-card reveal">
             <img src="expo.jpg" alt="Certificado 3">
-            <div class="cert-label">Conferencia sobre la construccion de un agente inteligente</div>
+            <div class="cert-label">Conferencia sobre la construcción de un agente inteligente</div>
           </div>
         </div>
       </div>
@@ -523,12 +592,11 @@
         <h2 class="title">Hablemos</h2>
 
         <div class="contact-wrap reveal">
-          
 
           <div class="contact-info">
             <div class="contact-row">
               <span class="icon">[loc]</span>
-              <div><b>Ubicación</b>Nezahualcoyotl , Estado de Mexico</div>
+              <div><b>Ubicación</b>Nezahualcóyotl, Estado de México</div>
             </div>
             <div class="contact-row">
               <span class="icon">[@]</span>
@@ -538,7 +606,7 @@
               <span class="icon">[tel]</span>
               <div><b>Teléfono</b><a href="tel:+525577501043">+52 55 7750 1043</a></div>
             </div>
-           
+
             <div class="contact-row">
               <span class="icon">[gh]</span>
               <div><b>GitHub</b>github.com/Cristian-BC</div>
@@ -567,15 +635,19 @@
   window.addEventListener('scroll', updateProgress, {passive:true});
   updateProgress();
 
-  // ===== 2. Resaltar el link activo del menú lateral =====
+  // ===== 2. Resaltar el link activo del menú lateral y de la barra superior =====
   const sections = document.querySelectorAll('main section');
   const navLinks = document.querySelectorAll('.side-nav a');
+  const topbarLinks = document.querySelectorAll('.topbar a');
 
   const navObserver = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
         const id = entry.target.getAttribute('id');
         navLinks.forEach(link=>{
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+        topbarLinks.forEach(link=>{
           link.classList.toggle('active', link.getAttribute('href') === '#' + id);
         });
       }
@@ -624,7 +696,7 @@
   }
 
   // ===== 5. Scroll suave al hacer click en el menú (refuerzo además del CSS) =====
-  navLinks.forEach(link=>{
+  document.querySelectorAll('.side-nav a, .topbar a').forEach(link=>{
     link.addEventListener('click', (e)=>{
       const target = document.querySelector(link.getAttribute('href'));
       if(target){
